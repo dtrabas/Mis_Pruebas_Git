@@ -1,0 +1,195 @@
+* Los ficheros en Git pueden estar en tres estados:
+
+	. Committed: el fichero está guardado en tu local database
+	
+	. Modificado: has cambiado el fichero pero aún no lo has commiteado
+	
+	. Staged: has marcado un fichero modificado para ir en tu próximo commit snapshot
+
+* Fichero 'tracked'
+
+	Cualquier fichero modificado, borrado o creado desde el último commit que todavía no está en el área stage ('staged')
+
+* Stage area
+
+	Area que contiene los ficheros que serán commiteados en el próximo 'git commit'
+	
+* git init
+
+	Situados en la carpeta que queremos que controle git, este comando creará la carpeta oculta '.git' que contendrá el esqueleto del repositorio git para esa carpeta. En este punto ningún fichero de la carpeta está trackeado todavía.
+	
+* git clone <url>
+
+	Clona un repositorio existente en la carpeta en la que estamos situados
+
+* git status
+
+	Muestra el estado de nuestros ficheros
+	
+* git status -s
+
+	Muestra el estado de nuestros ficheros en formato reducido
+	
+* Fichero .gitignore
+
+	Contiene los ficheros de los que no queremos que se haga tracking. Para un proyecto java típico serían:
+	
+		$ cat .gitignore
+		.classpath
+		.project
+		.settings
+		target/
+		/bin/
+			
+* git add <file>
+
+	Pasa el <file> indicado al area staged
+
+* git diff <file>
+
+	Muestra los cambios (respecto del último commit) en el <file> que no está aún staged
+
+* git diff <parametros> <file>
+
+	Sin parámetros: Muestra los cambios del fichero Modified respecto del fichero en el area staged ó de su último commit si no está en dicho area
+
+	--staged: Muestra los cambios del fichero en el area staged respecto de su último commit
+	--cached: lo mismo. Es sinónimo de --staged
+	
+	Ojo: si el fichero está en el area staged, git diff sin parámetros no mostrará ningún cambio!!!
+		
+* git commit <file>
+
+	Hace commit del <file> del staged area. Se abre el editor por defecto para escribir la descripción del commit
+	
+* git commit -a
+
+	Pasa todos los ficheros en seguimiento (tracked) al staged area (e.d. ejecuta git add ./) y después realiza el commit.
+	
+* git commit -m 'descripción del commit' <file>
+
+	Añade el fichero al stage area y ha commit del mismo. También permite indicar la descripción del commit en la misma línea de comando. 
+	
+* git rm <file>
+
+	Borra el <file> (rm <file>) y mueve el cambio al stage area (git add <file>)
+	
+* git mv <file1> <file2>
+
+	Renombra file1 a file2. 
+	
+	Es equivalente a ejecutar estos comandos:
+	
+		mv file1 file2
+		git rm file1
+		git add file2
+	
+* git checkout -- <file>
+
+	Hace un discard de los cambios realizados en el <file> que todavía no están en el stage area
+	
+* git reset HEAD <file>
+
+	Saca el <file> del stage area
+	
+* git log
+
+	 Muestra los commits realizados sobre el repositorio en orden cronoógico inverso, es decir, el commit mas reciente se muestra el primero.
+	 
+	Parámetros interesantes:
+	
+		--follow -- <file>	--> muestra los commits del fichero indicado
+
+	
+		-<número> 		--> muestra el número indicado de commmits
+		
+		-p ó --patch	-->	muestra los cambios de cada commit
+		
+		--stat			--> muestra por cada commit estadísticas abreviadas (ficheros modificados, resumen de cambios, etc)
+		
+		--pretty=oneline --> muestra un commit por línea
+		
+		--graph			--> Display an ASCII graph of the branch and merge history beside the log output.
+		
+		--since=2.days	--> Limita la salida a los commits de los últimos dos días (o weeks o years o una mezcla de todos ellos)
+		
+		--until, --before --> Limit the commits to those made before the specified date.
+
+		--author 		--> Only show commits in which the author entry matches the specified string.
+
+		--committer 	--> Only show commits in which the committer entry matches the specified string.
+
+		--grep			--> Only show commits with a commit message containing the string
+
+		-S	<texto>		--> Only show commits adding or removing code matching the string		
+
+* git commit --amend
+
+	Nos permite modificar el comentario del último commit y/o añadir el contenido del stage area a dicho commit. Este proceso reemplaza completamente el commit original de tal forma que es como si nunca se hubiera realizado.
+	
+* git remote add origin <url_repositorio_remoto>
+
+	Añade el repositorio remoto indicado y le asigna el nombre origin
+	
+* git remote -v
+
+	Muestra información de los respositorios remotos configurados para el proyecto actual
+	
+* git remote show <origin>
+
+	Muestra información sobre el repositorio remoto <origin>
+	
+* git remote remove <nombre_repo>
+
+	Elimina el repositorio 
+	
+* git remote rename <nombre_repo> <nombre_nuevo>
+
+	Cambia el nombre del repositorio remoto
+	
+* git fetch <remote>
+
+	Obtiene información de las ramas del repositorio <remote>
+	
+	El repositorio por defecto siempre es 'origin'
+	
+	Descarga la información nueva que no tenemos en nuestro repositorio local 
+	
+* git pull
+
+	Hace un 'git fetch' seguido de un 'git merge' de la rama actual con la del respositorio remoto
+	
+* git tag 
+
+	Muestra en orden alfabético los tags definidos.
+	
+	Existen dos tipos de tags:
+	
+		. Lightweight: similar a una rama que no cambia. Básicamente es un puntero a un commit específico.
+		
+			git tag <nombre_tag>
+		
+		. Annotated: se guardan como full objects en la bbdd de Git. Tienen checksum, mensaje de tagging, email y fecha.
+		
+			git tag -a <nombre_tag> -m "mensaje de tagging"
+			
+* git show <nombre_tag>
+
+	Muestra la información asociada al tag.
+	
+* git tag -l "patrón"
+
+	Muestra los tags que cumplen el patrón indicado
+
+* git push origin <nombre_tag>
+
+	Transfiere el tag al repositorio remoto
+	
+* git push origin --tags
+
+	Transfiere al repositorio todas las tags que no tenga ya
+	
+* git checkout <nombre_tag>
+
+	Permite ver las versiones de los ficheros a los que apunta este tag. Pone el repositorio en estado 'detached HEAD'. En este estado hay que tener cuidado con los commits y el branching ya que funciona diferente. Mejor revisar la documentación...
+	
