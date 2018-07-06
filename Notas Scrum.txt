@@ -1,0 +1,26 @@
+Notas Scrum
+===========
+
+* Scrum (que no se escribe en mayúsculas, porque no es un acrónimo) es una “metodología” ágil para, importante, la gestión de proyectos. Más que una metodología (las metodologías ágiles no existen) se trata de un marco de trabajo (framework) o conjunto de buenas prácticas.
+
+* Buenas prácticas como equipos multifuncionales, auto-organizados, equipos pequeños, el ciclo de vida iterativo-incremental, etc.,
+
+	. Un equipo multifuncional es aquel equipo que posee todas las competencias necesarias para lograr completar el trabajo, sin depender (o dependiendo mínimamente) de otros equipos, áreas, o roles fuera del mismo.
+	
+	. Un equipo de auto-organizado es un equipo dirigido y organizado por sus propios miembros, para alcanzar los objetivos especificados por la gerencia, dentro, obviamente, de las limitaciones de su entorno. 
+	
+	. Las metodologías ágiles siempre recomiendan trabajar con equipos pequeños (aproximadamente 7 personas)
+	
+	. En un ciclo de vida iterativo e incremental se va liberando partes del producto (prototipos) periódicamente, en cada iteración, y cada nueva versión, normalmente, aumenta la funcionalidad y mejora en calidad respecto a la anterior.
+	
+* Los pilares de Scrum son, principalmente, dos: el ciclo de vida iterativo e incremental y diversas reuniones a lo largo del proyecto.
+
+* El ciclo de vida iterativo e incremental es aquel en que se va liberando el producto por partes, periódicamente, iterativamente, poco a poco, y además cada entrega es un incremento de funcionalidad respecto a la anterio
+
+	.  A cada iteración se le llama Sprint. Un Sprint es un periodo de corta duración (menor a 4 semanas, el equipo decide) que debe finalizar con un prototipo operativo o producto potencialmente entregable.
+	
+	. Lo que se va a implementar en el Sprint, la funcionalidad del prototipo, proviene de la Pila del Producto (Product Backlog), que contiene un conjunto de items, normalmente, requisitos funcionales o historias de usuario
+	
+	. La figura del Propietario del Producto (Product Owner), es el responsable de gestionar el Product Backlog, priorizarlo, mantenerlo y de crear las historias de usuario (o items en general).
+	
+	. Una vez seleccionadas las historias de usuario que se van a desarrollar en el Sprint, el equipo técnico las descompone  en tareas, las cuales forman la Pila del Sprint (Sprint Backlog), que será inamovible durante el Sprint.
