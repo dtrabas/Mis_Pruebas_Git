@@ -3,6 +3,10 @@
 RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 ==========================================================
 
+==============
+ Introducción
+==============
+
 * Los ficheros en Git pueden estar en tres estados:
 
 	. Committed: el fichero está guardado en tu local database
@@ -133,6 +137,10 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 
 	Nos permite modificar el comentario del último commit y/o añadir el contenido del stage area a dicho commit. Este proceso reemplaza completamente el commit original de tal forma que es como si nunca se hubiera realizado.
 	
+=============
+   Remotes
+=============	
+	
 * git remote add origin <url_repositorio_remoto>
 
 	Añade el repositorio remoto indicado y le asigna el nombre origin
@@ -164,6 +172,10 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 * git pull
 
 	Hace un 'git fetch' seguido de un 'git merge' de la rama actual con la del respositorio remoto
+	
+=============
+    Tags
+=============	
 	
 * git tag [nombreNuevoTag]
 
@@ -197,7 +209,7 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 		
 		ó
 		
-		git push --delete origin <nombreTag>
+		git push origin --delete <nombreTag>
 
 * git push origin <nombre_tag>
 
@@ -212,8 +224,10 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 * git checkout <nombre_tag>
 
 	Permite ver las versiones de los ficheros a los que apunta este tag. Pone el repositorio en estado 'detached HEAD'. En este estado hay que tener cuidado con los commits y el branching ya que funciona diferente. Mejor revisar la documentación...
-	
-* Branching:
+
+=============	
+  Branching
+=============
 
 	. Un commit consiste en una estructura de objetos formada por:
 	
