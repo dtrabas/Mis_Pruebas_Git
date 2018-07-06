@@ -56,9 +56,10 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 
 * git diff <parametros> <file>
 
-	Sin parámetros: Muestra los cambios del fichero Modified respecto del fichero en el area staged ó de su último commit si no está en dicho area
+	Sin parámetros: Muestra los cambios del fichero Modified (no está aún staged) respecto del fichero en el area staged ó de su último commit si no está en dicho area
 
-	--staged: Muestra los cambios del fichero en el area staged respecto de su último commit
+	--staged: Muestra los cambios del fichero en el area staged respecto de su último commit. Si también hay cambios en el fichero Modified, estos no se mostrarán.
+	
 	--cached: lo mismo. Es sinónimo de --staged
 	
 	Ojo: si el fichero está en el area staged, git diff sin parámetros no mostrará ningún cambio!!!
@@ -164,9 +165,9 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 
 	Hace un 'git fetch' seguido de un 'git merge' de la rama actual con la del respositorio remoto
 	
-* git tag 
+* git tag [nombreNuevoTag]
 
-	Muestra en orden alfabético los tags definidos.
+	Muestra en orden alfabético los tags definidos ó crea un nuevo tag con el nombre indicado.
 	
 	Existen dos tipos de tags:
 	
