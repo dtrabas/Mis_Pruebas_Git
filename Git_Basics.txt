@@ -9,7 +9,7 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 
 * Los ficheros en Git pueden estar en tres estados:
 
-	. Committed: el fichero está guardado en tu local database
+	. Committed: el fichero está guardado en tu database local 
 	
 	. Modificado: has cambiado el fichero pero aún no lo has commiteado
 	
@@ -54,10 +54,6 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 
 	Pasa el <file> indicado al area staged
 
-* git diff <file>
-
-	Muestra los cambios (respecto del último commit) en el <file> que no está aún staged
-
 * git diff <parametros> <file>
 
 	Sin parámetros: Muestra los cambios del fichero Modified (no está aún staged) respecto del fichero en el area staged ó de su último commit si no está en dicho area
@@ -67,6 +63,12 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 	--cached: lo mismo. Es sinónimo de --staged
 	
 	Ojo: si el fichero está en el area staged, git diff sin parámetros no mostrará ningún cambio!!!
+	
+* git diff <COMMIT>
+
+	Muestra los cambios de los ficheros Modified/Staged respecto de ese commit. 
+	
+	Ojo: para las diferencias del commit SI se tiene en cuenta el area staged!!!
 		
 * git commit <file>
 
@@ -104,7 +106,7 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 	
 * git log
 
-	 Muestra los commits realizados sobre el repositorio en orden cronoógico inverso, es decir, el commit mas reciente se muestra el primero.
+	 Muestra los commits realizados sobre el repositorio en orden cronológico inverso, es decir, el commit mas reciente se muestra el primero.
 	 
 	Parámetros interesantes:
 	
@@ -132,6 +134,14 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 		--grep			--> Only show commits with a commit message containing the string
 
 		-S	<texto>		--> Only show commits adding or removing code matching the string		
+		
+		--all -- <path> --> Muestra los commits que han modificado el fichero indicado
+		
+
+* git show --pretty="" --name-only  <COMMIT>
+
+	Muestra la lista de los ficheros que fueron modificados en el commit indicado
+	
 
 * git commit --amend
 
@@ -263,6 +273,14 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 
 	Cambia la rama actual a la rama indicada
 	
+=====================
+  Deshaciendo cosas	
+=====================
 
+* Deshacer merge:
+
+	git reset --hard HEAD
 	
-		
+* Deshacer el último commit (deja los ficheros commiteados como unstaged)
+
+	git reset HEAD~1
