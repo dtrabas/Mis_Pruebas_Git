@@ -7,13 +7,19 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
  Introducción
 ==============
 
-* Los ficheros en Git pueden estar en tres estados:
+* Los ficheros en Git pueden estar en dos estados: tracked o untracked
 
-	. Committed: el fichero está guardado en tu database local 
+	. Tracked: son los ficheros que estaban en tu último snapshot. A su vez, pueden estar en tres estados:
+
+		- Sin modificar (commited): el fichero está guardado en tu database local 
 	
-	. Modificado: has cambiado el fichero pero aún no lo has commiteado
+		- Modificado: has cambiado el fichero pero aún no lo has añadido al stage area.
 	
-	. Staged: has marcado un fichero modificado para ir en tu próximo commit snapshot
+		- Staged: has marcado un fichero modificado para ir en tu próximo commit snapshot
+		
+	. Untracked: el resto de ficheros. Es decir, ficheros que no estaban en último snapshot ni están en el stage area.
+	
+	La primera vez que clonas un repositorio, todos los ficheros están tracked y sin modificar.
 
 * Fichero 'tracked'
 
@@ -77,6 +83,8 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 * git commit -a
 
 	Pasa todos los ficheros en seguimiento (tracked) al staged area (e.d. ejecuta git add ./) y después realiza el commit.
+	
+	Ojo: sólo tiene en cuenta los ficheros tracked. Si acabas de crear un fichero nuevo, este estará untracked y no será tenido en cuenta en el commit. Así que primero tendrás que ejecutar 'git add .' para para pasar a tracked los ficheros nuevos.
 	
 * git commit -m 'descripción del commit' <file>
 
@@ -146,6 +154,10 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 * git commit --amend
 
 	Nos permite modificar el comentario del último commit y/o añadir el contenido del stage area a dicho commit. Este proceso reemplaza completamente el commit original de tal forma que es como si nunca se hubiera realizado.
+	
+	Ejecutado sin indicar el nombre del fichero que queremos añadir al commit, añadirá todos los ficheros del staged area.
+	
+	...
 	
 =============
    Remotes
@@ -259,6 +271,10 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 
 	Crea una nueva rama apuntando al commit en el que estás situado (pero no cambia la rama sobre la que estás)
 	
+	Para cambiar automáticamente a la nueva rama, añade el parámetro -b
+	
+		git branch -b <nombreRama>
+	
 	¿ Como sabe Git la rama en la que estás ?: git mantiene un puntero especial llamado HEAD con el nombre de la rama actual (fichero ./.git/HEAD)
 	
 	Con este comando tienes una representación muy acertada de a donde apunta cada commit:
@@ -272,6 +288,18 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 * git checkout <nombreRama>
 
 	Cambia la rama actual a la rama indicada
+	
+* git merge <nombreRama>
+
+	Mergea los cambios de la rama indicada sobre la rama actual.
+	
+	Se dice que se hace Fast-Forward cuando mergeas un commit con un commit que puede ser alcanzado siguiendo la historia del primer commit. En otras palabras, el commit de la rama que vas a mergear viene directamente del commit de la rama en la que estás.
+	
+* git baranch -d <nombreRama>
+
+	Elimina la rama indicada
+	
+	Ojo: tienes que estar situado en una rama en la que se haya mergeado la rama que quieres borrar. En caso contrario, te sale el error 'error: The branch 'hotfix2' is not fully merged' y necesitas ejecutar el comando así ''git branch -D hotfix2'
 	
 =====================
   Deshaciendo cosas	
