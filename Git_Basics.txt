@@ -3,13 +3,23 @@
 RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 ==========================================================
 
-* Los ficheros en Git pueden estar en tres estados:
+==============
+ Introducción
+==============
 
-	. Committed: el fichero está guardado en tu local database
+* Los ficheros en Git pueden estar en dos estados: tracked o untracked
+
+	. Tracked: son los ficheros que estaban en tu último snapshot. A su vez, pueden estar en tres estados:
+
+		- Sin modificar (commited): el fichero está guardado en tu database local 
 	
-	. Modificado: has cambiado el fichero pero aún no lo has commiteado
+		- Modificado: has cambiado el fichero pero aún no lo has añadido al stage area.
 	
-	. Staged: has marcado un fichero modificado para ir en tu próximo commit snapshot
+		- Staged: has marcado un fichero modificado para ir en tu próximo commit snapshot
+		
+	. Untracked: el resto de ficheros. Es decir, ficheros que no estaban en último snapshot ni están en el stage area.
+	
+	La primera vez que clonas un repositorio, todos los ficheros están tracked y sin modificar.
 
 * Fichero 'tracked'
 
@@ -50,10 +60,6 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 
 	Pasa el <file> indicado al area staged
 
-* git diff <file>
-
-	Muestra los cambios (respecto del último commit) en el <file> que no está aún staged
-
 * git diff <parametros> <file>
 
 	Sin parámetros: Muestra los cambios del fichero Modified (no está aún staged) respecto del fichero en el area staged ó de su último commit si no está en dicho area
@@ -63,6 +69,12 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 	--cached: lo mismo. Es sinónimo de --staged
 	
 	Ojo: si el fichero está en el area staged, git diff sin parámetros no mostrará ningún cambio!!!
+	
+* git diff <COMMIT>
+
+	Muestra los cambios de los ficheros Modified/Staged respecto de ese commit. 
+	
+	Ojo: para las diferencias del commit SI se tiene en cuenta el area staged!!!
 		
 * git commit <file>
 
@@ -71,6 +83,8 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 * git commit -a
 
 	Pasa todos los ficheros en seguimiento (tracked) al staged area (e.d. ejecuta git add ./) y después realiza el commit.
+	
+	Ojo: sólo tiene en cuenta los ficheros tracked. Si acabas de crear un fichero nuevo, este estará untracked y no será tenido en cuenta en el commit. Así que primero tendrás que ejecutar 'git add .' para para pasar a tracked los ficheros nuevos.
 	
 * git commit -m 'descripción del commit' <file>
 
@@ -100,7 +114,7 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 	
 * git log
 
-	 Muestra los commits realizados sobre el repositorio en orden cronoógico inverso, es decir, el commit mas reciente se muestra el primero.
+	 Muestra los commits realizados sobre el repositorio en orden cronológico inverso, es decir, el commit mas reciente se muestra el primero.
 	 
 	Parámetros interesantes:
 	
@@ -128,10 +142,26 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 		--grep			--> Only show commits with a commit message containing the string
 
 		-S	<texto>		--> Only show commits adding or removing code matching the string		
+		
+		--all -- <path> --> Muestra los commits que han modificado el fichero indicado
+		
+
+* git show --pretty="" --name-only  <COMMIT>
+
+	Muestra la lista de los ficheros que fueron modificados en el commit indicado
+	
 
 * git commit --amend
 
 	Nos permite modificar el comentario del último commit y/o añadir el contenido del stage area a dicho commit. Este proceso reemplaza completamente el commit original de tal forma que es como si nunca se hubiera realizado.
+	
+	Ejecutado sin indicar el nombre del fichero que queremos añadir al commit, añadirá todos los ficheros del staged area.
+	
+	...
+	
+=============
+   Remotes
+=============	
 	
 * git remote add origin <url_repositorio_remoto>
 
@@ -165,6 +195,10 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 
 	Hace un 'git fetch' seguido de un 'git merge' de la rama actual con la del respositorio remoto
 	
+=============
+    Tags
+=============	
+	
 * git tag [nombreNuevoTag]
 
 	Muestra en orden alfabético los tags definidos ó crea un nuevo tag con el nombre indicado.
@@ -186,10 +220,24 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 * git tag -l "patrón"
 
 	Muestra los tags que cumplen el patrón indicado
+	
+* git tag -d <nombreTag>
+
+	Elimina el tag especificado. No se elimina del remoto. 
+	
+	Para eliminarlo del repositorio remoto:
+	
+		git push origin :refs/tags/<nombreTag>
+		
+		ó
+		
+		git push origin --delete <nombreTag>
 
 * git push origin <nombre_tag>
 
 	Transfiere el tag al repositorio remoto
+	
+	OJO: 'git push' no transfiere por defecto tags al remoto. Hay que hacerlo explicitamente
 	
 * git push origin --tags
 
@@ -198,4 +246,69 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 * git checkout <nombre_tag>
 
 	Permite ver las versiones de los ficheros a los que apunta este tag. Pone el repositorio en estado 'detached HEAD'. En este estado hay que tener cuidado con los commits y el branching ya que funciona diferente. Mejor revisar la documentación...
+
+=============	
+  Branching
+=============
+
+	. Un commit consiste en una estructura de objetos formada por:
 	
+		(Usamos como ejemplo un directorio conteniendo tres archivos sobre los que hacemos stage y commit)
+	
+		1. Un Objeto principal del commit: contiene el nombre y email del autor, el mensaje empleado y un puntero a un objeto tree
+		
+		2. Un objeto tree: contiene el contenido del directorio y por cada archivo un puntero al objeto blob correspondiente
+		
+		3. Tres objetos blob (uno por archivo del directorio) con el contenido del archivo.
+		
+	. Al conjunto anterior lo llamamos Snapshot: cada vez que hacemos un commit se guarda un puntero al commit del que partió
+	
+	. Una rama es simplemente un puntero a un commit determinado
+		
+	. La rama por defecto en git es 'master'
+	
+* git branch <nombreRama>
+
+	Crea una nueva rama apuntando al commit en el que estás situado (pero no cambia la rama sobre la que estás)
+	
+	Para cambiar automáticamente a la nueva rama, añade el parámetro -b
+	
+		git branch -b <nombreRama>
+	
+	¿ Como sabe Git la rama en la que estás ?: git mantiene un puntero especial llamado HEAD con el nombre de la rama actual (fichero ./.git/HEAD)
+	
+	Con este comando tienes una representación muy acertada de a donde apunta cada commit:
+	
+		git log --oneline --decorate
+		
+	Este otro muestra una referencia visual del branching:
+	
+		git log --oneline --decorate --graph --all
+	
+* git checkout <nombreRama>
+
+	Cambia la rama actual a la rama indicada
+	
+* git merge <nombreRama>
+
+	Mergea los cambios de la rama indicada sobre la rama actual.
+	
+	Se dice que se hace Fast-Forward cuando mergeas un commit con un commit que puede ser alcanzado siguiendo la historia del primer commit. En otras palabras, el commit de la rama que vas a mergear viene directamente del commit de la rama en la que estás.
+	
+* git baranch -d <nombreRama>
+
+	Elimina la rama indicada
+	
+	Ojo: tienes que estar situado en una rama en la que se haya mergeado la rama que quieres borrar. En caso contrario, te sale el error 'error: The branch 'hotfix2' is not fully merged' y necesitas ejecutar el comando así ''git branch -D hotfix2'
+	
+=====================
+  Deshaciendo cosas	
+=====================
+
+* Deshacer merge:
+
+	git reset --hard HEAD
+	
+* Deshacer el último commit (deja los ficheros commiteados como unstaged)
+
+	git reset HEAD~1
