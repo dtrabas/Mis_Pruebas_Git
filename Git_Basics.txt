@@ -17,7 +17,7 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 	
 		- Staged: has marcado un fichero modificado para ir en tu próximo commit snapshot
 		
-	. Untracked: el resto de ficheros. Es decir, ficheros que no estaban en último snapshot ni están en el stage area.
+	. Untracked: el resto de ficheros. Es decir, ficheros que no estaban en el último snapshot ni están en el stage area.
 	
 * Stage area
 
@@ -33,7 +33,7 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 	
 * git help <nombreComandoGit>
 
-	Abre en el navegador por defecto la man page del comando indicado
+	Abre en el navegador por defecto la 'man page' del comando indicado
 	
 * git <nombreComandoGit> -h
 
@@ -68,6 +68,8 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 		.settings
 		target/
 		/bin/
+		
+	Si queremos omitir un tipo de archivo en todas las subcarpetas: **.tipo
 			
 * git add <file>
 
@@ -81,7 +83,7 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 	
 	Ojo: si el fichero está en el area staged, git diff sin parámetros no mostrará ningún cambio!!!
 	
-* git diff <COMMIT> <file>
+* git diff <ID_DE_COMMIT_A_COMPARAR> <file>
 
 	Muestra los cambios de los ficheros Modified/Staged respecto de ese commit. 
 	
@@ -198,6 +200,10 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 * git pull
 
 	Hace un 'git fetch' seguido de un 'git merge' de la rama actual con la del respositorio remoto
+	
+* git push <remote> <branch>
+
+	Sube la rama indicada al repositorio remoto.
 	
 =============
     Tags
