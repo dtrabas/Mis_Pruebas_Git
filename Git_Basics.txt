@@ -195,7 +195,7 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 	
 	El repositorio por defecto siempre es 'origin'
 	
-	Descarga la información nueva que no tenemos en nuestro repositorio local 
+	Descarga la información nueva de estado que no tenemos en nuestro repositorio local (sólo estado, no descarga ficheros). Debemos ejecutarlo siempre antes de git status para estar seguros que estamos comparando el estado de nuestro repositorio local con el del remoto.
 	
 * git pull
 
