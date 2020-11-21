@@ -387,3 +387,4 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 		git reset --hard master~2 
 		
 	Mueve HEAD al 2º ancestro. Los últimos 2 commits de la rama desaparecerán si no estuvieran en otra rama 
+
