@@ -91,7 +91,18 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 	
 	Nota: "git diff HEAD <file>" nos mostrará todos los cambios del fichero ya esté modificado o en el stage area.
 	
-		
+* git diff rama_x rama_y
+
+	Muestra las diferencias entre las dos ramas indicadas
+	
+* git diff master~2
+
+	Muestra las diferencias entre master~2 y HEAD
+	
+* git diff rama_x rama_y --nombreFichero
+
+	Muestra las diferencias entre las ramas indicadas del fichero 
+	
 * git commit <file>
 
 	Hace commit del <file> del staged area. Se abre el editor por defecto para escribir la descripción del commit
@@ -111,6 +122,10 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 	Nos permite modificar el comentario del último commit y/o añadir el contenido del stage area a dicho commit. Este proceso reemplaza completamente el commit original de tal forma que es como si nunca se hubiera realizado.
 	
 	Ejecutado sin indicar el nombre del fichero que queremos añadir al commit, añadirá todos los ficheros del staged area.
+	
+   . Puedes usar <commit>^n para referirte al numero (n) de padre de un commit y <commit>~n para referirte al ancestro (n) de su historia.
+   
+     La notacion ancestro sigue la linea del primer padre (Cx^1): es decir, master~1=master^1
 	
 * git rm <file>
 
@@ -133,8 +148,7 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 	Parámetros interesantes:
 	
 		--follow -- <file>	--> muestra los commits del fichero indicado
-
-	
+		
 		-<número> 		--> muestra el número indicado de commmits
 		
 		-p ó --patch	-->	muestra los cambios de cada commit
@@ -159,7 +173,16 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 		
 		--all -- <path> --> Muestra los commits que han modificado el fichero indicado
 		
+		Ejemplos:
+		
+			. git log -3 --> Muestra los tres ultimos commits
+			
+			. git log --oneline --graph --> Muestra los commits en una sola linea con la historia en forma de grafo
+		
+* git show 
 
+	Muestra los metadatos de del commit actual (HEAD) y las diferencias con el commit anterior
+	
 * git show --pretty="" --name-only  <COMMIT>
 
 	Muestra la lista de los ficheros que fueron modificados en el commit indicado
@@ -256,6 +279,10 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 * git checkout <nombre_tag>
 
 	Permite ver las versiones de los ficheros a los que apunta este tag. Pone el repositorio en estado 'detached HEAD'. En este estado hay que tener cuidado con los commits y el branching ya que funciona diferente. Mejor revisar la documentación...
+	
+* git checkout <commit>
+
+	Restaura el commit en el directorio de trabajo (es decir, actualiza HEAD con ese commit)
 
 =============	
   Branching
@@ -299,6 +326,10 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 	
 		git checkout -b <nombreRama>
 		
+	A partir de la version 2.23 de Git, se recomienda usar este nuevo comando para cambiar de rama:
+	
+		git switch <nombreRama>
+		
 * git merge <nombreRama>
 
 	Mergea los cambios de la rama indicada sobre la rama actual.
@@ -323,6 +354,10 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 
 	git checkout -- <file>
 	
+	A partir de la version 2.23 de Git, es prferible usar el siguiente comando:
+	
+		git restore <file>
+	
 * Sacar el <file> del stage area
 
 	git reset HEAD <file>
@@ -334,3 +369,22 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 * Deshacer el último commit (deja los ficheros commiteados como unstaged)
 
 	git reset HEAD~1
+	
+* git reset <commit>
+
+	Cambia el puntero de rama y HEAD a <commit>. Deja las diferencias entre HEAD y <commit> en el directorio de trabajo. Es decir, restaura el contenido de <commit> añadiendo las diferencias que teníamos.
+	
+	Peligro! Se pueden perder commits del grafo si los eliminados no están guardados en otra rama
+	
+	Es útil cuando hemos ido haciendo muchos commits durante nuestro desarrollo y queremos unirlos todos en uno solo para simplificar el grafo.
+	
+* git reset --hard <commit>
+
+	Muy Peligroso! Cambia el puntero al commit indicado perdiéndose todos los cambios entre ese commit y el actual.
+	
+	Por ejemplo:
+	
+		git reset --hard master~2 
+		
+	Mueve HEAD al 2º ancestro. Los últimos 2 commits de la rama desaparecerán si no estuvieran en otra rama 
+
