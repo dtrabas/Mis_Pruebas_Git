@@ -376,7 +376,7 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 	
 	Peligro! Se pueden perder commits del grafo si los eliminados no están guardados en otra rama
 	
-	Es útil cuando hemos ido haciendo muchos commits durante nuestro desarrollo y queremos unirlos todos en uno solo para simplificar el grafo.
+	Es útil cuando hemos ido haciendo muchos commits durante nuestro desarrollo y queremos unirlos todos en uno solo para simplificar el grafo. Pero siempre que no hayas hecho ya push al repositorio remoto (origin)
 	
 * git reset --hard <commit>
 
