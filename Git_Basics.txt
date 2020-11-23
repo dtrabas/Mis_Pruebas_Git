@@ -187,6 +187,9 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 
 	Muestra la lista de los ficheros que fueron modificados en el commit indicado
 	
+* git show <nombreRama>
+
+	Muestra la información del último commit en nombreRama y las diferencias añadidas en el último commit
 
 =============
    Remotes
@@ -303,6 +306,12 @@ RESUMEN DEL eBOOK PRO GIT (https://git-scm.com/book/en/v2)
 	. Una rama es simplemente un puntero a un commit determinado
 		
 	. La rama por defecto en git es 'master'
+	
+* git branch
+
+	Muestra las ramas que tenemos. Un asterisco nos indica en cual estamos situados.
+	
+	Con el parámetro -v nos da mas información a parte del nombre.
 	
 * git branch <nombreRama>
 
